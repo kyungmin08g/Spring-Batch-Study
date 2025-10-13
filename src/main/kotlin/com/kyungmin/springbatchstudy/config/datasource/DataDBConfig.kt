@@ -43,7 +43,7 @@ class DataDBConfig {
     val properties: HashMap<String, Any> = HashMap()
     properties["hibernate.hbm2ddl.auto"] = "update"
     properties["hibernate.show_sql"] = true
-    properties["hibernate.format_sql"] = true
+    properties["hibernate.format_sql"] = false
     em.setJpaPropertyMap(properties)
 
     return em
