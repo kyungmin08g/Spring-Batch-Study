@@ -39,7 +39,6 @@ class FirstBatch(
       .start(firstStep())
       .build()
 
-
   // Step
   @Bean
   @JobScope // 해당 Job이 끝나면 즉시 소멸하게 해주는 어노테이션 (덕분에 Job이 끝나면 자동으로 정리되어 메모리 관리가 효율적으로 이루어짐.)

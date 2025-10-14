@@ -6,14 +6,12 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
-import lombok.AllArgsConstructor
 import lombok.Getter
-import lombok.NoArgsConstructor
+import lombok.Setter
 
 @Entity
 @Getter
-@AllArgsConstructor
-@NoArgsConstructor
+@Setter
 @Table(name = "win_entity")
 class WinEntity(
 
@@ -28,5 +26,5 @@ class WinEntity(
   val win: Long,
 
   @Column(name = "reward", nullable = false)
-  val reward: Boolean
+  var reward: Boolean
 )
