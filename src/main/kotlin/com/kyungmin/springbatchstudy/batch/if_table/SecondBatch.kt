@@ -43,7 +43,7 @@ class SecondBatch(
   fun secondStep(): Step = StepBuilder("secondStep", jobRepo)
     .chunk<WinEntity, WinEntity>(10, transactionManager)
     .reader(winReader())
-    .processor(processor())
+    .processor(winProcessor())
     .writer(winWriter())
     .build()
 
@@ -61,7 +61,7 @@ class SecondBatch(
 
   // Processor
   @Bean
-  fun processor(): ItemProcessor<WinEntity, WinEntity> = ItemProcessor {
+  fun winProcessor(): ItemProcessor<WinEntity, WinEntity> = ItemProcessor {
     it.reward = true
     it
   }

@@ -20,7 +20,7 @@ class SecondBatchController(
   private val jobRegistry: JobRegistry
 ) {
 
-  @GetMapping("/first/{value}")
+  @GetMapping("/second/{value}")
   fun runSecondBatch(@PathVariable("value") value: String): ResponseEntity<String> {
     val jobParameters = JobParametersBuilder()
       .addString("value", value)
