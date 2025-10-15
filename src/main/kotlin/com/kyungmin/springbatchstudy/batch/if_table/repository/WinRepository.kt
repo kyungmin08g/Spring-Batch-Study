@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface WinRepository : JpaRepository<WinEntity, Long> {
+  // 특정 win보다 크거나 같은 데이터를 Pageable하는 함수
   fun findByWinGreaterThanEqual(
     win: Long,
     pageable: Pageable
