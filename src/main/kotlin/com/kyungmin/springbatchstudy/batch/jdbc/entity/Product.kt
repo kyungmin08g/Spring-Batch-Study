@@ -29,7 +29,7 @@ class Product(
   val productId: Long? = null,
 
   @Column(name = "name", nullable = false)
-  val name: String,
+  var name: String,
 
   @Column(name = "description")
   val desc: String?,
