@@ -99,18 +99,18 @@ class JdbcPagingBatch(
  * 실행결과 (비교용)
  *
  * Cursor Reader 방식
- * - Job: [SimpleJob: [name=jdbcCursorJob]] launched with the following parameters: [{'value':'{value=2, type=class java.lang.String, identifying=true}'}]
+ * - Job: [SimpleJob: [name=jdbcCursorJob]] launched with the following parameters: [{'value':'{value=3, type=class java.lang.String, identifying=true}'}]
  * - Executing step: [cursorStep]
- * - Step: [cursorStep] executed in 99ms
- * - Job: [SimpleJob: [name=jdbcCursorJob]] completed with the following parameters: [{'value':'{value=2, type=class java.lang.String, identifying=true}'}]
- * - and the following status: [COMPLETED] in 157ms
+ * - Step: [cursorStep] executed in 97ms
+ * - Job: [SimpleJob: [name=jdbcCursorJob]] completed with the following parameters: [{'value':'{value=3, type=class java.lang.String, identifying=true}'}]
+ * - and the following status: [COMPLETED] in 150ms
  *
  * ============================================================================================================================================================================================================
  *
  * Paging Reader 방식
- * - Job: [SimpleJob: [name=jdbcPagingJob]] launched with the following parameters: [{'value':'{value=2, type=class java.lang.String, identifying=true}'}]
+ * - Job: [SimpleJob: [name=jdbcPagingJob]] launched with the following parameters: [{'value':'{value=3, type=class java.lang.String, identifying=true}'}]
  * - Executing step: [pagingStep]
- * - Step: [pagingStep] executed in 79ms
- * - Job: [SimpleJob: [name=jdbcPagingJob]] completed with the following parameters: [{'value':'{value=2, type=class java.lang.String, identifying=true}'}]
- * - and the following status: [COMPLETED] in 106ms
+ * - Step: [pagingStep] executed in 60ms
+ * - Job: [SimpleJob: [name=jdbcPagingJob]] completed with the following parameters: [{'value':'{value=3, type=class java.lang.String, identifying=true}'}]
+ * - and the following status: [COMPLETED] in 80ms
  */
