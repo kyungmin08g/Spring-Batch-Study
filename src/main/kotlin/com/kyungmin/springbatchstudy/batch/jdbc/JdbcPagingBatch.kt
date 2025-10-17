@@ -44,10 +44,6 @@ class JdbcPagingBatch(
     // Step (동일)
     @Bean
     @JobScope
-      /**
-       * JdbcCursorItemReader : JDBC 기반으로 데이터를 읽을 때 사용하는 Reader
-       * - 커서(Cursor) 방식 : DB에서 한 행씩 읽어서 메모리에 올려 처리
-       */
     fun pagingStep(): Step = StepBuilder("pagingStep", jobRepo)
       .chunk<Product, Product>(20, transactionManager)
       .reader(pagingReader())
@@ -62,7 +58,7 @@ class JdbcPagingBatch(
         .name("pagingReader")
         .selectClause("SELECT id, name, description, price")
         .fromClause("FROM product")
-        .whereClause("WHERE id LIKE 'user%'")
+        .whereClause("WHERE description LIKE 'user%'")
         .dataSource(dataSource)
         .rowMapper(ProductRowMapper())
         .pageSize(20)
@@ -72,7 +68,7 @@ class JdbcPagingBatch(
     // Processor
     @Bean
     fun pagingProcessor(): ItemProcessor<Product, Product> = ItemProcessor {
-      it.name = "Type" // 모든 name을 "Type"으로 수정
+      it.name = "Type" // name을 "Type"으로 수정
       it
     }
 

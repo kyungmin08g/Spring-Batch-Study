@@ -7,6 +7,7 @@ import org.springframework.batch.core.launch.JobLauncher
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 /**
@@ -21,13 +22,19 @@ class JdbcBatchController(
 ) {
 
   @GetMapping("/jdbc/{value}")
-  fun runSecondBatch(@PathVariable("value") value: String): ResponseEntity<String> {
+  fun runCursorBatch(
+    @PathVariable("value") value: String,
+    @RequestParam("batch") batch: String
+  ): ResponseEntity<String> {
     val jobParameters = JobParametersBuilder()
       .addString("value", value)
       .toJobParameters()
 
-    jobLauncher.run(jobRegistry.getJob("jdbcCursorJob"), jobParameters)
+    when(batch) {
+      "cursor" -> jobLauncher.run(jobRegistry.getJob("jdbcCursorJob"), jobParameters)
+      "paging" -> jobLauncher.run(jobRegistry.getJob("jdbcPagingJob"), jobParameters)
+    }
 
-    return ResponseEntity.ok("Job OK! (JDBC Cursor)")
+    return ResponseEntity.ok("JDBC Job OK!")
   }
 }
