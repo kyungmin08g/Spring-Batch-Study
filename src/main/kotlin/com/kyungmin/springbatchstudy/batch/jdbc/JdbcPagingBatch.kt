@@ -25,6 +25,10 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Import
 import org.springframework.jdbc.support.JdbcTransactionManager
 
+/**
+ * JDBC용 Batch Config Class (Paging)
+ */
+
 @Configuration
 @Import(value = [DataDBConfig::class ])
 class JdbcPagingBatch(
@@ -54,16 +58,20 @@ class JdbcPagingBatch(
     // Reader
     @Bean
     @StepScope
+    /*
+     JdbcPagingItemReader : 데이터를 Page 단위로 읽어오는 ItemReader (효율적)
+     */
     fun pagingReader(): JdbcPagingItemReader<Product> = JdbcPagingItemReaderBuilder<Product>()
-        .name("pagingReader")
-        .selectClause("SELECT id, name, description, price")
-        .fromClause("FROM product")
-        .whereClause("WHERE description LIKE 'user%'")
-        .dataSource(dataSource)
-        .rowMapper(ProductRowMapper())
-        .pageSize(20)
-        .sortKeys(mapOf("id" to Order.ASCENDING))
-        .build()
+      .name("pagingReader") // Reader Name
+      .selectClause("SELECT id, name, description, price") // SELECT Query
+      .fromClause("FROM product") // FROM Query
+      .whereClause("WHERE description LIKE 'user%'") // WHERE Query
+      .dataSource(dataSource) // DataSource
+      .rowMapper(ProductRowMapper()) // Row Mapper
+      .pageSize(20) // Page Size
+      .fetchSize(20) // Fetch Size
+      .sortKeys(mapOf("id" to Order.ASCENDING)) // 오름차순 정렬
+      .build()
 
     // Processor
     @Bean
@@ -86,3 +94,23 @@ class JdbcPagingBatch(
         .build()
     }
 }
+
+/**
+ * 실행결과 (비교용)
+ *
+ * Cursor Reader 방식
+ * - Job: [SimpleJob: [name=jdbcCursorJob]] launched with the following parameters: [{'value':'{value=2, type=class java.lang.String, identifying=true}'}]
+ * - Executing step: [cursorStep]
+ * - Step: [cursorStep] executed in 99ms
+ * - Job: [SimpleJob: [name=jdbcCursorJob]] completed with the following parameters: [{'value':'{value=2, type=class java.lang.String, identifying=true}'}]
+ * - and the following status: [COMPLETED] in 157ms
+ *
+ * ============================================================================================================================================================================================================
+ *
+ * Paging Reader 방식
+ * - Job: [SimpleJob: [name=jdbcPagingJob]] launched with the following parameters: [{'value':'{value=2, type=class java.lang.String, identifying=true}'}]
+ * - Executing step: [pagingStep]
+ * - Step: [pagingStep] executed in 79ms
+ * - Job: [SimpleJob: [name=jdbcPagingJob]] completed with the following parameters: [{'value':'{value=2, type=class java.lang.String, identifying=true}'}]
+ * - and the following status: [COMPLETED] in 106ms
+ */
