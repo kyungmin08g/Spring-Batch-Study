@@ -4,12 +4,18 @@ import com.kyungmin.springbatchstudy.batch.jdbc.entity.Product
 import org.springframework.jdbc.core.RowMapper
 import java.sql.ResultSet
 
+/**
+ * Product용 Row Mapper Class
+ * - RowMapper : JDBC에서 DB 결과(ResultSet)를 객체로 매핑해주는 Interface
+ */
+
 class ProductRowMapper : RowMapper<Product> {
 
+  // ENUM 상수를 만들어 내부에서만 사용 가능하도록 만듦.
   enum class Columns(val value: String) {
-    ID_COLUMN("productId"),
+    ID_COLUMN("id"),
     NAME("name"),
-    DESC("desc"),
+    DESC("description"),
     PRICE("price")
   }
 
