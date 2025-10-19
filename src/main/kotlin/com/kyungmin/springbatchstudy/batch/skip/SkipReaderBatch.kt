@@ -33,7 +33,7 @@ class SkipReaderBatch(
   fun skipReaderStep(): Step = StepBuilder("skipReaderStep", jobRepo)
     .chunk<String, String>(2, transactionManager)
     .reader(skipReader())
-    .writer(skipWriter())
+    .writer(skipReaderWriter())
     .faultTolerant() // 내결함성 기능 활성화
     .skipLimit(2) // 몇번의 skip을 허용할 건지 (skip 허용 횟수)
     .skip(IllegalArgumentException::class.java) // skip할 예외
@@ -63,7 +63,7 @@ class SkipReaderBatch(
   }
 
   @Bean
-  fun skipWriter(): ItemWriter<String?> {
+  fun skipReaderWriter(): ItemWriter<String?> {
     return ItemWriter {
       it.items.forEach { item ->
         println(item)
