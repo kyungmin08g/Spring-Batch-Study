@@ -43,7 +43,6 @@ dependencies {
 
   // Kotlin Loging
   implementation("io.github.oshai:kotlin-logging-jvm:7.0.13")
-  implementation("org.slf4j:slf4j-simple:2.0.3")
 
   compileOnly("org.projectlombok:lombok")
   runtimeOnly("com.mysql:mysql-connector-j")
