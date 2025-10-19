@@ -7,6 +7,7 @@ import org.springframework.batch.core.launch.JobLauncher
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 /**
@@ -21,13 +22,20 @@ class SkipBatchController(
 ) {
 
   @GetMapping("/skip/{value}")
-  fun runSecondBatch(@PathVariable("value") value: String): ResponseEntity<String> {
+  fun runCursorBatch(
+    @PathVariable("value") value: String,
+    @RequestParam("batch") batch: String
+  ): ResponseEntity<String> {
     val jobParameters = JobParametersBuilder()
       .addString("value", value)
       .toJobParameters()
 
-    jobLauncher.run(jobRegistry.getJob("skipReaderJob"), jobParameters)
+    when(batch) {
+      "reader" -> jobLauncher.run(jobRegistry.getJob("skipReaderJob"), jobParameters)
+      "processor" -> jobLauncher.run(jobRegistry.getJob("skipProcessorJob"), jobParameters)
+      "writer" -> jobLauncher.run(jobRegistry.getJob("skipWriterJob"), jobParameters)
+    }
 
-    return ResponseEntity.ok("Skip OK!")
+    return ResponseEntity.ok("Skip Job OK!")
   }
 }
