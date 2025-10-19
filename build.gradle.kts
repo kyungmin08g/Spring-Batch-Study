@@ -41,6 +41,10 @@ dependencies {
 //  implementation("com.linecorp.kotlin-jdsl:jpql-render:3.5.7")
 //  implementation("com.linecorp.kotlin-jdsl:spring-data-jpa-support:3.5.7")
 
+  // Kotlin Loging
+  implementation("io.github.oshai:kotlin-logging-jvm:7.0.13")
+  implementation("org.slf4j:slf4j-simple:2.0.3")
+
   compileOnly("org.projectlombok:lombok")
   runtimeOnly("com.mysql:mysql-connector-j")
   annotationProcessor("org.projectlombok:lombok")
