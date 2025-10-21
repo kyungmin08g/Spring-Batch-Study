@@ -37,7 +37,7 @@ class RetryBatch(
     .faultTolerant() // 내결함성 기능 활성화
     .retry(SQLException::class.java) // retry할 예외
     .retryLimit(2) // retry 허용 횟수
-    .noSkip(NullPointerException::class.java)
+    .noRetry(NullPointerException::class.java)
     .build()
 
   @Bean
