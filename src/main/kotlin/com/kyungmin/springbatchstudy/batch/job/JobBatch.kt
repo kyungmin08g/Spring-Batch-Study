@@ -12,6 +12,10 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.transaction.PlatformTransactionManager
 
+/**
+ * Job Batch Config Class
+ */
+
 @Configuration
 class JobBatch(
   private val jobRepo: JobRepository,
@@ -24,10 +28,18 @@ class JobBatch(
   fun job(): Job = JobBuilder("job", jobRepo)
     .start(step1())
     .on("*").to(step2())
+    /*
+      - on() : 특정 조건을 걸 수 있는 함수 (파라미터 -> 패턴(pattern) ex. *(와일드 카드 -> 실패/성공 여부 관계없이 무조건 실행))
+      단, on() 함수는 from() 함수가 있고 그 함수가 실행 됐을 경우에는 무시됨.
+      - to() : 특정 조건에 따른 Step을 설정 가능한 함수 (파라미터 -> 스텝(step))
+     */
     .from(step1()).on("FAILED").to(step3())
     .from(step1()).on("COMPLETED").to(step4())
+    /*
+      - from() : 특정 스텝(Step)에 따른 결과를 반환 받고 그에 맞는 on() 함수로 조건을 비교하여 다음 스텝으로 넘어가는 함수
+     */
     .end()
-    .listener(CustomJobExecutionListener())
+    .listener(CustomJobExecutionListener()) // JobExecutionListener Interface를 상속 받은 Custom Class나, Bean으로 주입한 JobExecutionListener 함수를 넣는 함수 (Listener 정의)
     .build()
 
   @Bean
@@ -66,6 +78,7 @@ class JobBatch(
     return ItemReader {
       number++
 
+      // number가 8 이상이면 null 반환하여 Step 종료
       val response = if (number > 8) null else number.toString()
 
       log.info { "ItemReader >> $number" }
