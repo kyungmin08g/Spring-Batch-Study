@@ -2,17 +2,28 @@ spring:
   application:
     name: Spring-Batch-Study
 
-  datasource:
+  datasource-data:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${DB_URL}
+    jdbc-url: ${DB_URL}
+    # 기존 URL 속성을 JDBC URL 속성으로 변경해야 함.
+    # 그렇지 않으면 아래와 같은 에러가 발생함: Caused by: java.lang.IllegalArgumentException: jdbcUrl is required with driverClassName.
     username: ${DB_USERNAME}
     password: ${DB_PW}
+
+  datasource-meta:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    jdbc-url: ${DB_URL_META}
+    username: ${DB_USERNAME_META}
+    password: ${DB_PW_META}
 
   jpa:
     open-in-view: false
     show-sql: false
-    hibernate:
-      ddl-auto: update
-    properties:
-      hibernate:
-        format_sql: true
+
+  batch:
+    job:
+      enabled: false # Spring Batch가 자동으로 실행되는 것을 차단함.
+    jdbc:
+      initialize-schema: always # Spring Batch Meta Table을 자동 생성을 허용.
+      schema: classpath:org/springframework/batch/core/schema-mysql.sql # 해당 DB의 SQL 파일(META Table 생성 파일)을 찾아 작성. (아래 주석 참고)
+      # External Libraries -> Gradle: org.springframework.batch:spring-batch-core:{version} -> org.springframework.batch.core/schema-{db}.sql

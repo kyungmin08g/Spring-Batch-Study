@@ -29,6 +29,7 @@ repositories {
 dependencies {
   implementation("org.springframework.boot:spring-boot-starter-web")
   implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+  implementation("org.springframework.boot:spring-boot-starter-jdbc")
   implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
   implementation("org.jetbrains.kotlin:kotlin-reflect")
 
@@ -36,9 +37,12 @@ dependencies {
   implementation("org.springframework.boot:spring-boot-starter-batch")
 
   // Kotlin JDSL
-  implementation("com.linecorp.kotlin-jdsl:jpql-dsl:3.5.7")
-  implementation("com.linecorp.kotlin-jdsl:jpql-render:3.5.7")
-  implementation("com.linecorp.kotlin-jdsl:spring-data-jpa-support:3.5.7")
+//  implementation("com.linecorp.kotlin-jdsl:jpql-dsl:3.5.7")
+//  implementation("com.linecorp.kotlin-jdsl:jpql-render:3.5.7")
+//  implementation("com.linecorp.kotlin-jdsl:spring-data-jpa-support:3.5.7")
+
+  // Kotlin Loging
+  implementation("io.github.oshai:kotlin-logging-jvm:7.0.13")
 
   compileOnly("org.projectlombok:lombok")
   runtimeOnly("com.mysql:mysql-connector-j")
