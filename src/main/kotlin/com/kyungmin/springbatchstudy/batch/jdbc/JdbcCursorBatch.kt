@@ -1,7 +1,7 @@
 package com.kyungmin.springbatchstudy.batch.jdbc
 
 import com.kyungmin.springbatchstudy.batch.jdbc.entity.Product
-import com.kyungmin.springbatchstudy.config.datasource.DataDBConfig
+import com.kyungmin.springbatchstudy.config.DataDBConfig
 import org.springframework.batch.core.Job
 import org.springframework.batch.core.Step
 import org.springframework.batch.core.configuration.annotation.JobScope

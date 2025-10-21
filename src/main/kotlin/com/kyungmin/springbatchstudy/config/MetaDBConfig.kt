@@ -1,4 +1,4 @@
-package com.kyungmin.springbatchstudy.config.datasource
+package com.kyungmin.springbatchstudy.config
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.jdbc.DataSourceBuilder
